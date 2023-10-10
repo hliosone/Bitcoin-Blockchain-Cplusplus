@@ -21,9 +21,33 @@ public:
     }
 
     string static getCurrentTime(){
-        auto currentTime = ::chrono::system_clock::to_time_t(chrono::system_clock::now());
-        return (string) std::ctime(&currentTime);
+        auto currentTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        string currentTimeStr = ctime(&currentTime);
+
+        if (!currentTimeStr.empty() && currentTimeStr.back() == '\n') {
+            currentTimeStr.pop_back();
+        }
+
+        return currentTimeStr;
     }
+
+    Block static mineBlock(const Block& lastBlock, const string data){
+        const string _timestamp = getCurrentTime();
+        const unsigned long _lastHash = lastBlock.hash;
+        const unsigned long _hash = 1; //create hash function later
+
+        return Block(_timestamp, _lastHash, _hash, data);
+    }
+
+    /*
+     * Maybe like this should be better ? Check later
+     *Block mineBlock(const string data){
+        const string _timestamp = getCurrentTime();
+        const unsigned long _lastHash = this->hash;
+        const unsigned long _hash = 1; //create hash function later
+
+        return Block(_timestamp, _lastHash, _hash, data);
+    } */
 
 private :
     const string timestamp;
@@ -34,8 +58,9 @@ private :
 
 int main() {
     srand(time(0));
-    Block one("test",321, 213, "mes txs");
-    cout << one.blockString() << endl;
+    const Block Genesis = Block::mineBlock(Block::genesis(), "first txs on the chain");
+    cout << Genesis.blockString() << endl;
+
 //  test2
 //    Block test = Block::genesis();
 
