@@ -9,6 +9,7 @@
 
 using namespace std;
 
+string removeSpaces(const string& input);
 class Block {
 
 public:
@@ -43,6 +44,11 @@ public:
         return Block(_timestamp, _lastHash, _hash, data);
     }
 
+    string static getInputToHash(const Block& block){
+        string input = block.timestamp + block.lastHash + block.data;
+        return removeSpaces(input);
+    }
+
     /*
      * Maybe like this should be better ? Check later
      *Block mineBlock(const string data){
@@ -64,9 +70,21 @@ int main() {
     srand(time(0));
     const Block Genesis = Block::mineBlock(Block::genesis(), "first txs on the chain");
     cout << Genesis.blockString() << endl;
+    cout << Block::getInputToHash(Genesis) << endl;
 
 //  test2
 //    Block test = Block::genesis();
 
     return 0;
+}
+
+
+string removeSpaces(const string& input){
+    string result;
+    for (char c : input){
+        if(c != ' '){
+            result += c;
+        }
+    }
+    return result;
 }
