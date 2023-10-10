@@ -36,7 +36,7 @@ int main() {
     srand(time(0));
     Block one("test",321, 213, "mes txs");
     cout << one.blockString() << endl;
-//
+//  test2
 //    Block test = Block::genesis();
 
     return 0;
