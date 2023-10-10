@@ -1,13 +1,5 @@
 # ninja log v5
-0	439	7186668399793298	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-440	531	7186668400686569	BlockchainCplusplus.exe	2c0ea4a4554dda6b
-2	502	7186678652395602	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-503	592	7186678653277510	BlockchainCplusplus.exe	2c0ea4a4554dda6b
-4	534	7186685261634537	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-535	626	7186685262523797	BlockchainCplusplus.exe	2c0ea4a4554dda6b
-2	571	7186687386862433	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-572	653	7186687387667944	BlockchainCplusplus.exe	2c0ea4a4554dda6b
-3	556	7186688449412511	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-556	640	7186688450232168	BlockchainCplusplus.exe	2c0ea4a4554dda6b
-2	583	7186688538465967	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
-583	671	7186688539316761	BlockchainCplusplus.exe	2c0ea4a4554dda6b
+2	588	7186714561805208	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	9a3c950a7a183301
+589	692	7186714562816065	BlockchainCplusplus.exe	2c0ea4a4554dda6b
+3	580	7186788340814006	CMakeFiles/BlockchainCplusplus.dir/main.cpp.obj	19b6d447649a8219
+580	771	7186788342709153	BlockchainCplusplus.exe	2c0ea4a4554dda6b

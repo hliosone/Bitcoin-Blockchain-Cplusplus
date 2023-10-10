@@ -3,21 +3,24 @@
 #include <limits>
 #include <chrono>
 #include <ctime>
+#include <openssl/sha.h>
+
+
 
 using namespace std;
 
 class Block {
 
 public:
-    Block(string _timestamp,unsigned long _lasthash,unsigned long _hash, string _data) : timestamp(_timestamp),
+    Block( string _timestamp, string _lasthash,string _hash, string _data) : timestamp(_timestamp),
     lastHash(_lasthash), hash(_hash), data(_data){};
     string blockString() const{
-        return "Block : \nTimestamp : " + timestamp + "\nLast Hash : " + to_string(lastHash) +
-        "\nHash : " + to_string(hash) + "\nData : " + data;
+        return "Block : \nTimestamp : " + timestamp + "\nLast Hash : " + lastHash +
+        "\nHash : " + hash + "\nData : " + data;
     }
 
     Block static genesis(){
-        return Block("date",0, rand() % std::numeric_limits<unsigned long>::max(), "Genesis block");
+        return Block("date", to_string(0), to_string(rand() % std::numeric_limits<unsigned long>::max()), "Genesis block");
     }
 
     string static getCurrentTime(){
@@ -31,10 +34,11 @@ public:
         return currentTimeStr;
     }
 
+    //mine block referencing to the last one
     Block static mineBlock(const Block& lastBlock, const string data){
         const string _timestamp = getCurrentTime();
-        const unsigned long _lastHash = lastBlock.hash;
-        const unsigned long _hash = 1; //create hash function later
+        const string _lastHash = lastBlock.hash;
+        const string _hash = "0"; //create hash function later
 
         return Block(_timestamp, _lastHash, _hash, data);
     }
@@ -51,8 +55,8 @@ public:
 
 private :
     const string timestamp;
-    const unsigned long lastHash;
-    const unsigned long hash;
+    const string lastHash;
+    const string hash;
     const string data = "";
 };
 
