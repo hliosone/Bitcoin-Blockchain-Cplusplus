@@ -9,6 +9,7 @@
 
 #include <string>
 #include <vector>
+#include <array>
 #include <openssl/sha.h>
 
 class Block {
@@ -16,6 +17,10 @@ class Block {
 public:
     Block(const uint8_t _prevBlockHash[SHA256_DIGEST_LENGTH], const uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty, time_t _timestamp);
     std::string blockString() const;
+
+    // Getters
+    time_t getTimestamp() const;
+    const uint8_t* getLastHash() const;
 
     //Block functions
     Block static genesis();
