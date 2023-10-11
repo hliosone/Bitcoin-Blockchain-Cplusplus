@@ -3,6 +3,7 @@
 //
 
 #include "Block.h"
+#include "common.h"
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -12,6 +13,8 @@
 #include <openssl/sha.h>
 
 using namespace std;
+
+
 
 
 // Getters
@@ -35,7 +38,7 @@ uint32_t Block::getBlockHeight() const{
 
 // Blocks functions
 Block::Block(uint32_t _blockHeight, const uint8_t _prevBlockHash[SHA256_DIGEST_LENGTH], const uint8_t _hash[SHA256_DIGEST_LENGTH],
-             int _difficulty, time_t _timestamp) : blockHeight(_blockHeight), nonce(0), difficulty(_difficulty), timestamp(_timestamp) {
+             int _difficulty) : blockHeight(_blockHeight), nonce(0), difficulty(_difficulty), timestamp(getCurrentTime()) {
                 copy(_prevBlockHash, _prevBlockHash + SHA256_DIGEST_LENGTH, lastHash);
                 copy(_hash, _hash + SHA256_DIGEST_LENGTH, hash);
                 auto transactions = new vector<Transaction>;
@@ -51,27 +54,19 @@ string hashToString(const uint8_t hash[SHA256_DIGEST_LENGTH]){
     return hashStr;
 }
 
-string Block::blockString() const{
- return "Block : \nPrevious Hash : " + hashToString(lastHash);
- //+  " \nTimestamp : " +  "\nLast Hash : " + lastHash +
-//           "\nHash : " + hash + "\nData : " + data;
-
-}
-
 // Block functions
 Block static genesis(){
 
     const uint8_t genesisPreviousHash[SHA256_DIGEST_LENGTH] = {};
-
     string genesisHashStr = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f";
     uint8_t genesisHash[SHA256_DIGEST_LENGTH] = {};
-
-    const uint32_t firstBlockHeight = 0;
     for (int i = 0; i < SHA256_DIGEST_LENGTH; ++i){
         genesisHash[i] = genesisHashStr[i];
     }
 
-    return Block(firstBlockHeight, genesisPreviousHash, genesisHash, 1, Block::getCurrentTime());
+    const uint32_t firstBlockHeight = 0;
+
+    return Block(firstBlockHeight, genesisPreviousHash, genesisHash, 1);
 }
 
 Block static mineBlock(const Block& lastBlock){
@@ -79,17 +74,24 @@ Block static mineBlock(const Block& lastBlock){
     uint8_t _lastHash[SHA256_DIGEST_LENGTH];
     copy(lastBlock.getLastBlockHash(), lastBlock.getLastBlockHash() + SHA256_DIGEST_LENGTH, _lastHash);
     uint8_t _hash[SHA256_DIGEST_LENGTH] = {}; //create hash function later
-    const time_t _timestamp = Block::getCurrentTime();
+    const time_t _timestamp = getCurrentTime();
 
-    return Block((lastBlock.getBlockHeight() + 1),_lastHash, _hash, 0, Block::getCurrentTime());
+    return Block((lastBlock.getBlockHeight() + 1),_lastHash, _hash, 0);
+}
+
+string Block::blockString() const{
+    return "Block : \nPrevious Hash : " + hashToString(lastHash);
+    //+  " \nTimestamp : " +  "\nLast Hash : " + lastHash +
+//           "\nHash : " + hash + "\nData : " + data;
+
 }
 
 // Time functions
-time_t static getCurrentTime(){
+time_t getCurrentTime(){
     return chrono::system_clock::to_time_t(chrono::system_clock::now());
 }
 
-string Block::getTimeZoneBased(const time_t& timestamp) const{
+string getTimeZoneBased(const time_t& timestamp) {
     string currentTimeStr = "null";
     if(timestamp != 0){
         currentTimeStr = ctime(&timestamp);

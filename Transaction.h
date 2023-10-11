@@ -10,7 +10,7 @@
 class Transaction {
 
 public :
-    Transaction(std::string _sender, std::string _receiver, time_t _timestamp, double _amount, std::string _tx_data);
+    Transaction(std::string _sender, std::string _receiver, double _amount, std::string _tx_data);
     int calculateWeight() const;
 
 private :
