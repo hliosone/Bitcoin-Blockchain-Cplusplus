@@ -14,7 +14,7 @@
 class Block {
 
 public:
-    Block(uint8_t _lastHash[SHA256_DIGEST_LENGTH], uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty, time_t _timestamp);
+    Block(const uint8_t _prevBlockHash[SHA256_DIGEST_LENGTH], const uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty, time_t _timestamp);
     std::string blockString() const;
 
     //Block functions
@@ -26,12 +26,14 @@ public:
     std::string getTimeZoneBased(const time_t& timestamp) const;
 
     // Cryptographic functions
+    std::string hashToString(const uint8_t hash[SHA256_DIGEST_LENGTH]) const;
     std::string static getInputToHash(const Block& block);
 
 private :
     time_t timestamp;
     uint8_t lastHash[SHA256_DIGEST_LENGTH];
     uint8_t hash[SHA256_DIGEST_LENGTH];
+    uint8_t hashRoot[SHA256_DIGEST_LENGTH];
     const int nonce;
     const int difficulty;
     std::vector<Transaction> transactions;
