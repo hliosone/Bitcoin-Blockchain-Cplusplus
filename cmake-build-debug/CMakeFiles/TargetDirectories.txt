@@ -1,3 +1,0 @@
-C:/Users/stelc/Documents/BlockchainCplusplus/cmake-build-debug/CMakeFiles/BlockchainCplusplus.dir
-C:/Users/stelc/Documents/BlockchainCplusplus/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/stelc/Documents/BlockchainCplusplus/cmake-build-debug/CMakeFiles/rebuild_cache.dir
