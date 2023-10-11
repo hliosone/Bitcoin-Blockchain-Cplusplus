@@ -14,8 +14,7 @@
 class Block {
 
 public:
-    Block(uint8_t _lastHash, uint8_t _hash, int _nonce, int _difficulty, time_t _timestamp,
-          std::vector<Transaction> _transactions);
+    Block(uint8_t _lastHash[SHA256_DIGEST_LENGTH], uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty, time_t _timestamp);
     std::string blockString() const;
 
     //Block functions
@@ -31,8 +30,8 @@ public:
 
 private :
     time_t timestamp;
-    const uint8_t lastHash[SHA256_DIGEST_LENGTH];
-    uint8_t Hash[SHA256_DIGEST_LENGTH];
+    uint8_t lastHash[SHA256_DIGEST_LENGTH];
+    uint8_t hash[SHA256_DIGEST_LENGTH];
     const int nonce;
     const int difficulty;
     std::vector<Transaction> transactions;

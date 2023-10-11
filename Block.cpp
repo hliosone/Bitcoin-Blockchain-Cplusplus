@@ -9,9 +9,12 @@
 
 using namespace std;
 
-Block::Block(uint8_t _lastHash, uint8_t _hash, int _nonce, int _difficulty, time_t _timestamp,
-             std::vector<Transaction> _transactions) : lastHash(_lastHash), hash(_hash), nonce(_nonce),
-             timestamp(_timestamp), _transactions(new vector<Transaction> transactions){}
+Block::Block(uint8_t _lastHash[SHA256_DIGEST_LENGTH], uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty,
+             time_t _timestamp) : nonce(_nonce), difficulty(_difficulty), timestamp(_timestamp) {
+                copy(_lastHash, _lastHash + SHA256_DIGEST_LENGTH, lastHash);
+                copy(_hash, _hash + SHA256_DIGEST_LENGTH, hash);
+                auto transactions = new vector<Transaction>;
+}
 
 string Block::blockString() const{
 
