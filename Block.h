@@ -15,12 +15,14 @@
 class Block {
 
 public:
-    Block(const uint8_t _prevBlockHash[SHA256_DIGEST_LENGTH], const uint8_t _hash[SHA256_DIGEST_LENGTH], int _nonce, int _difficulty, time_t _timestamp);
+    Block(uint32_t _blockHeight, const uint8_t _prevBlockHash[SHA256_DIGEST_LENGTH], const uint8_t _hash[SHA256_DIGEST_LENGTH], int _difficulty, time_t _timestamp);
     std::string blockString() const;
 
     // Getters
     time_t getTimestamp() const;
-    const uint8_t* getLastHash() const;
+    const uint8_t* getLastBlockHash() const;
+    int getNonce() const;
+    uint32_t getBlockHeight() const;
 
     //Block functions
     Block static genesis();
@@ -39,6 +41,7 @@ private :
     uint8_t lastHash[SHA256_DIGEST_LENGTH];
     uint8_t hash[SHA256_DIGEST_LENGTH];
     uint8_t hashRoot[SHA256_DIGEST_LENGTH];
+    uint32_t blockHeight;
     const int nonce;
     const int difficulty;
     std::vector<Transaction> transactions;
