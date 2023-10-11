@@ -3,6 +3,7 @@
 #include <limits>
 #include <chrono>
 #include <ctime>
+#include <vector>
 #include <openssl/sha.h>
 
 
@@ -10,6 +11,21 @@
 using namespace std;
 
 string removeSpaces(const string& input);
+
+class Transaction {
+
+public :
+    Transaction(string _sender, string _receiver, time_t _timestamp, double _amount, string _tx_data) : sender(_sender),
+    receiver(_receiver), timestamp(_timestamp), amount(_amount), tx_data(_tx_data){}
+
+private :
+    const string sender;
+    const string receiver;
+    const time_t timestamp;
+    const double amount;
+    const string tx_data;
+};
+
 class Block {
 
 public:
@@ -64,6 +80,7 @@ private :
     const string lastHash;
     const string hash;
     const string data = "";
+    vector<Transaction> transactions;
 };
 
 int main() {
@@ -88,3 +105,5 @@ string removeSpaces(const string& input){
     }
     return result;
 }
+
+
