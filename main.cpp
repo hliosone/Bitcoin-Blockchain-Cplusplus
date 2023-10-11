@@ -5,26 +5,13 @@
 #include <ctime>
 #include <vector>
 #include <openssl/sha.h>
-
-
+#include "Transaction.cpp"
 
 using namespace std;
 
 string removeSpaces(const string& input);
 
-class Transaction {
 
-public :
-    Transaction(string _sender, string _receiver, time_t _timestamp, double _amount, string _tx_data) : sender(_sender),
-    receiver(_receiver), timestamp(_timestamp), amount(_amount), tx_data(_tx_data){}
-
-private :
-    const string sender;
-    const string receiver;
-    const time_t timestamp;
-    const double amount;
-    const string tx_data;
-};
 
 class Block {
 
@@ -36,29 +23,37 @@ public:
         "\nHash : " + hash + "\nData : " + data;
     }
 
+    //Block functions
     Block static genesis(){
         return Block("date", to_string(0), to_string(rand() % std::numeric_limits<unsigned long>::max()), "Genesis block");
     }
 
-    string static getCurrentTime(){
-        auto currentTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
-        string currentTimeStr = ctime(&currentTime);
-
-        if (!currentTimeStr.empty() && currentTimeStr.back() == '\n') {
-            currentTimeStr.pop_back();
-        }
-
-        return currentTimeStr;
-    }
-
     //mine block referencing to the last one
     Block static mineBlock(const Block& lastBlock, const string data){
-        const string _timestamp = getCurrentTime();
+        const time_t _timestamp = getCurrentTime();
         const string _lastHash = lastBlock.hash;
         const string _hash = "0"; //create hash function later
 
-        return Block(_timestamp, _lastHash, _hash, data);
+        return Block(_timestamp, _lastHash, _hash, data, new vector<Transaction> transactions);
     }
+
+    // Time functions
+    time_t static getCurrentTime(){
+        return chrono::system_clock::to_time_t(chrono::system_clock::now());
+    }
+
+    string getTimeZoneBased(const time_t& timestamp){
+        string currentTimeStr = "null";
+        if(timestamp != 0){
+            currentTimeStr = ctime(&timestamp);
+            if (!currentTimeStr.empty() && currentTimeStr.back() == '\n') {
+                currentTimeStr.pop_back();
+            }
+        }
+        return currentTimeStr;
+    }
+
+
 
     string static getInputToHash(const Block& block){
         string input = block.timestamp + block.lastHash + block.data;
@@ -76,7 +71,7 @@ public:
     } */
 
 private :
-    const string timestamp;
+    time_t timestamp;
     const string lastHash;
     const string hash;
     const string data = "";

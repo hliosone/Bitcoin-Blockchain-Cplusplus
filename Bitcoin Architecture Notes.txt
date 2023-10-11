@@ -1,8 +1,13 @@
 Goal :
 
 - Create an electronic version of cash that will allow for peer-to-peer transactions
-- Prevent the double spending problem :
+- Propose a solution to the double spending problem :
     The double spending problem is (DESCRIBE)
--
+- Forming a record that cannot be changed without redoing the proof-of-work
+
+
+
+Inclure le champ de difficulte
+la difficulte est reajuste afin de faire en sorte que le minage d'un bloc prenne a peu pres toujorus 10 minutes
 
 
