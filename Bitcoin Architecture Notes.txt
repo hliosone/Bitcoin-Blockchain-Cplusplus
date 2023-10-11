@@ -1,0 +1,8 @@
+Goal :
+
+- Create an electronic version of cash that will allow for peer-to-peer transactions
+- Prevent the double spending problem :
+    The double spending problem is (DESCRIBE)
+-
+
+
