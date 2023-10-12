@@ -8,13 +8,16 @@
 
 using namespace std;
 
-Transaction::Transaction(std::string _sender, std::string _receiver,double _amount, std::string _tx_data) : sender(_sender),
+Transaction::Transaction(string _sender, string _receiver,double _amount, string _tx_data) : sender(_sender),
 receiver(_receiver), timestamp(getCurrentTime()), amount(_amount), tx_data(_tx_data){}
 
 int Transaction::calculateWeight() const{
     return (this->sender.size() + this->receiver.size() + sizeof(this->timestamp) + this->tx_data.size()
             + sizeof(this->amount));
 }
+
+//create string converter to utf8
+//create UTF8 Conversion to binary in a vector
 
 
 /*
