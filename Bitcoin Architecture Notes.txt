@@ -11,3 +11,20 @@ Inclure le champ de difficulte
 la difficulte est reajuste afin de faire en sorte que le minage d'un bloc prenne a peu pres toujorus 10 minutes
 
 
+Merkle Tree : 
+
+The goal is to be able to verify quickly the integrity of the transactions without having to store them entirely (disk space reduction). The merkle tree can also be used to demonstrate a proof of inclusion.
+
+Exemple :
+
+If we only one value in each pair of our tree but we have the resulting hash of the pair, we can technically prove that a certain data was include in the tree by founding the data that will generate the correct hash.
+
+For this we'll use a merkle tree structure.
+
+We will hash (SHA256) our transactions in pair of 2 and then continously hash the result with the next pair until we obtain what we call the merkle root which will be the final hash. (Each transaction is hashed once)
+
+The goal is after to re-claim disk space as once the network will decide that the bloc is secured enough (depends of multiple factors like nodes policy and choice of bitcoin clients dev), the transactions data will be deleted and we'll only keep the merkle root.
+
+We will not keep the intermediaries hash results as by going through the blockchain history it will be possible to verify integrity and reconstruct the transaction history.
+
+
